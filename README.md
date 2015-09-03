@@ -1,3 +1,3 @@
 # response-time middleware
 
-Measure response time of your code
+PSR-7 middleware meansuring PHP execution time
