@@ -1,12 +1,12 @@
 {
-    "name": "php-middleware/request-id",
-    "description": "Request Id middleware with PSR-7",
+    "name": "php-middleware/response-time",
+    "description": "PSR-7 middleware measuring PHP execution time",
     "type": "library",
     "keywords": [
         "middleware",
         "psr",
         "psr-7",
-        "request-id"
+        "response time"
     ],
     "require": {
         "php": ">=5.5",
@@ -14,20 +14,16 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8.6",
-        "ramsey/uuid": "^2.8",
         "zendframework/zend-diactoros": "^1.1.3"
-    },
-    "suggest": {
-        "ramsey/uuid": "To use Rhumsaa\\Uuid generator"
     },
     "autoload": {
         "psr-4": {
-            "PhpMiddleware\\RequestId\\": "src/"
+            "PhpMiddleware\\ResponseTime\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpMiddlewareTest\\RequestId\\": "test/"
+            "PhpMiddlewareTest\\ResponseTime\\": "test/"
         }
     }
 }
