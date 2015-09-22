@@ -22,14 +22,14 @@ class ResponseTimeMiddleware implements ResponseTimeAwareInterface
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        $callbackToMeasure = function() use ($request, &$response, $next) {
+        $callbackToMeasure = function () use ($request, &$response, $next) {
             $response = $next ? $next($request, $response) : $response;
         };
 
         $this->responseTime = $this->timer->measureCallbackExecutedTime($callbackToMeasure);
 
         if (!is_float($this->responseTime)) {
-            throw new \Exception();
+            throw new Exception\InvalidResponseTimeException('Response time must be a float');
         }
         if (!empty($this->responseHeader) && is_string($this->responseHeader)) {
             $response = $response->withHeader($this->responseHeader, $this->responseTime);
@@ -40,7 +40,7 @@ class ResponseTimeMiddleware implements ResponseTimeAwareInterface
     public function getResponseTime()
     {
         if ($this->responseTime === null) {
-            throw new Exception();
+            throw new Exception\NotMeasuredResponseTimeException('Response time is not measured yet');
         }
         return $this->responseTime;
     }
