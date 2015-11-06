@@ -66,4 +66,25 @@ class ResponseTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
     {
         $this->middleware->getResponseTime();
     }
+
+    public function testNoReturnHeaderIfEmptySetup()
+    {
+        $middleware = new ResponseTimeMiddleware($this->timer, null);
+
+        $this->timer->expects($this->once())->method('measureCallbackExecutedTime')->willReturnCallback(function () {
+            return 0.5;
+        });
+
+        $request = $this->getMock(ServerRequestInterface::class);
+        $response = $this->getMock(ResponseInterface::class);
+
+        $response->expects($this->never())->method('withHeader');
+
+        $result = call_user_func($middleware, $request, $response, function($request, $response) {
+            return $response;
+        });
+
+        $this->assertInstanceOf(ResponseInterface::class, $result);
+        $this->assertSame(0.5, $middleware->getResponseTime());
+    }
 }

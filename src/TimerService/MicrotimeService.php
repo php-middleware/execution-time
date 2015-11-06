@@ -2,7 +2,7 @@
 
 namespace PhpMiddleware\ResponseTime\TimerService;
 
-class MicrotimeService implements TimerServiceInterface
+final class MicrotimeService implements TimerServiceInterface
 {
     use MicrotimeTrait;
 
@@ -14,5 +14,4 @@ class MicrotimeService implements TimerServiceInterface
 
         return $this->diffToNowInMiliseconds($start);
     }
-
 }

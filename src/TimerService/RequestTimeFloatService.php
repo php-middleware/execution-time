@@ -5,7 +5,7 @@ namespace PhpMiddleware\ResponseTime\TimerService;
 use PhpMiddleware\ResponseTime\Exception\InvalidResponseTimeException;
 use Psr\Http\Message\ServerRequestInterface;
 
-class RequestTimeFloatService implements TimerServiceInterface
+final class RequestTimeFloatService implements TimerServiceInterface
 {
     use MicrotimeTrait;
 
