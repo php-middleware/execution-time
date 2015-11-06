@@ -20,10 +20,10 @@ class ResponseTimeMiddleware implements ResponseTimeAwareInterface
         $this->responseHeader = $responseHeader;
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
         $callbackToMeasure = function () use ($request, &$response, $next) {
-            $response = $next ? $next($request, $response) : $response;
+            $response = $next($request, $response);
         };
 
         $this->responseTime = $this->timer->measureCallbackExecutedTime($callbackToMeasure);
@@ -32,7 +32,7 @@ class ResponseTimeMiddleware implements ResponseTimeAwareInterface
             throw new Exception\InvalidResponseTimeException('Response time must be a float');
         }
         if (!empty($this->responseHeader) && is_string($this->responseHeader)) {
-            $response = $response->withHeader($this->responseHeader, $this->responseTime);
+            $response = $response->withHeader($this->responseHeader, (string) $this->responseTime);
         }
         return $response;
     }
