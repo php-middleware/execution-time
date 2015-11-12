@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpMiddleware\ResponseTime\TimerService;
+namespace PhpMiddleware\ExecutionTime\TimerService;
 
 trait MicrotimeTrait
 {

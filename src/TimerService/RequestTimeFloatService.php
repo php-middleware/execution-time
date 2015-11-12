@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpMiddleware\ResponseTime\TimerService;
+namespace PhpMiddleware\ExecutionTime\TimerService;
 
-use PhpMiddleware\ResponseTime\Exception\InvalidResponseTimeException;
+use PhpMiddleware\ExecutionTime\Exception\InvalidExecutionTimeException;
 use Psr\Http\Message\ServerRequestInterface;
 
 final class RequestTimeFloatService implements TimerServiceInterface
@@ -24,7 +24,7 @@ final class RequestTimeFloatService implements TimerServiceInterface
 
         if (empty($serverParams[self::REQUEST_TIME_FLOAT_KEY])) {
             $message = sprintf('$_SERVER does not contain %s key', self::REQUEST_TIME_FLOAT_KEY);
-            throw new InvalidResponseTimeException($message);
+            throw new InvalidExecutionTimeException($message);
         }
 
         $callback();

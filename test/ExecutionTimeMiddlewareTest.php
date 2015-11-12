@@ -1,13 +1,13 @@
 <?php
 
-namespace PhpMiddlewareTest\ResponseTime;
+namespace PhpMiddlewareTest\ExecutionTime;
 
-use PhpMiddleware\ResponseTime\ResponseTimeMiddleware;
-use PhpMiddleware\ResponseTime\TimerService\TimerServiceInterface;
+use PhpMiddleware\ExecutionTime\ExecutionTimeMiddleware;
+use PhpMiddleware\ExecutionTime\TimerService\TimerServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class ResponseTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
+class ExecutionTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
 {
     protected $middleware;
     protected $timer;
@@ -16,10 +16,10 @@ class ResponseTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
     {
         $this->timer = $this->getMock(TimerServiceInterface::class);
 
-        $this->middleware = new ResponseTimeMiddleware($this->timer);
+        $this->middleware = new ExecutionTimeMiddleware($this->timer);
     }
 
-    public function testResponseTime()
+    public function testExecutionTime()
     {
         $this->timer->expects($this->once())->method('measureCallbackExecutedTime')->willReturnCallback(function (callable $callback) {
             $callback();
@@ -33,7 +33,7 @@ class ResponseTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
         $closure = function () use ($response) {
             return clone $response;
         };
-        $response->expects($this->once())->method('withHeader')->with(ResponseTimeMiddleware::HEADER_RESPONSE_TIME, '0.5')->willReturnCallback($closure);
+        $response->expects($this->once())->method('withHeader')->with(ExecutionTimeMiddleware::HEADER_RESPONSE_TIME, '0.5')->willReturnCallback($closure);
 
         $result = call_user_func($this->middleware, $request, $response, function($request, $response) {
             return $response;
@@ -41,11 +41,11 @@ class ResponseTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(ResponseInterface::class, $result);
         $this->assertNotSame($response, $result);
-        $this->assertSame(0.5, $this->middleware->getExcecutionTime());
+        $this->assertSame(0.5, $this->middleware->getExecutionTime());
     }
 
     /**
-     * @expectedException \PhpMiddleware\ResponseTime\Exception\InvalidResponseTimeException
+     * @expectedException \PhpMiddleware\ExecutionTime\Exception\InvalidExecutionTimeException
      */
     public function testServiceReturnWrongTime()
     {
@@ -60,16 +60,16 @@ class ResponseTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpMiddleware\ResponseTime\Exception\NotMeasuredResponseTimeException
+     * @expectedException \PhpMiddleware\ExecutionTime\Exception\NotMeasuredExecutionTimeException
      */
     public function testGetReponseTimeBeforeRun()
     {
-        $this->middleware->getExcecutionTime();
+        $this->middleware->getExecutionTime();
     }
 
     public function testNoReturnHeaderIfEmptySetup()
     {
-        $middleware = new ResponseTimeMiddleware($this->timer, null);
+        $middleware = new ExecutionTimeMiddleware($this->timer, null);
 
         $this->timer->expects($this->once())->method('measureCallbackExecutedTime')->willReturnCallback(function () {
             return 0.5;
@@ -85,6 +85,6 @@ class ResponseTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
         });
 
         $this->assertInstanceOf(ResponseInterface::class, $result);
-        $this->assertSame(0.5, $middleware->getExcecutionTime());
+        $this->assertSame(0.5, $middleware->getExecutionTime());
     }
 }

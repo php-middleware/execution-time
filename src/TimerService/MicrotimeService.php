@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpMiddleware\ResponseTime\TimerService;
+namespace PhpMiddleware\ExecutionTime\TimerService;
 
 final class MicrotimeService implements TimerServiceInterface
 {

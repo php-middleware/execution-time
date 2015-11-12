@@ -1,12 +1,12 @@
 {
-    "name": "php-middleware/response-time",
+    "name": "php-middleware/excecution-time",
     "description": "PSR-7 middleware measuring PHP execution time",
     "type": "library",
     "keywords": [
         "middleware",
         "psr",
         "psr-7",
-        "response time"
+        "execution time"
     ],
     "require": {
         "php": ">=5.5",
@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpMiddleware\\ResponseTime\\": "src/"
+            "PhpMiddleware\\ExecutionTime\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PhpMiddlewareTest\\ResponseTime\\": "test/"
+            "PhpMiddlewareTest\\ExecutionTime\\": "test/"
         }
     }
 }

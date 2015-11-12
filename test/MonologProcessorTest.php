@@ -1,31 +1,31 @@
 <?php
 
-namespace PhpMiddlewareTest\ResponseTime;
+namespace PhpMiddlewareTest\ExecutionTime;
 
-use PhpMiddleware\ResponseTime\MonologProcessor;
-use PhpMiddleware\ResponseTime\ResponseTimeProviderInterface;
+use PhpMiddleware\ExecutionTime\ExecutionTimeProviderInterface;
+use PhpMiddleware\ExecutionTime\MonologProcessor;
 use PHPUnit_Framework_TestCase;
 
 class MonologProcessorTest extends PHPUnit_Framework_TestCase
 {
     protected $processor;
-    protected $responseTimeProvider;
+    protected $provider;
 
     protected function setUp()
     {
-        $this->responseTimeProvider = $this->getMock(ResponseTimeProviderInterface::class);
-        $this->processor = new MonologProcessor($this->responseTimeProvider);
+        $this->provider = $this->getMock(ExecutionTimeProviderInterface::class);
+        $this->processor = new MonologProcessor($this->provider);
     }
 
     public function testAddTimeToRecord()
     {
-        $this->responseTimeProvider->expects($this->once())->method('getExcecutionTime')->willReturn(1.5);
+        $this->provider->expects($this->once())->method('getExecutionTime')->willReturn(1.5);
         $record = [
             'extra' => [],
         ];
         $result = call_user_func($this->processor, $record);
 
-        $this->assertArrayHasKey('excecution-time', $result['extra']);
-        $this->assertSame(1.5, $result['extra']['excecution-time']);
+        $this->assertArrayHasKey('execution-time', $result['extra']);
+        $this->assertSame(1.5, $result['extra']['execution-time']);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace PhpMiddlewareTest\ResponseTime\TimerService;
+namespace PhpMiddlewareTest\ExecutionTime\TimerService;
 
-use PhpMiddleware\ResponseTime\TimerService\RequestTimeFloatService;
+use PhpMiddleware\ExecutionTime\TimerService\RequestTimeFloatService;
 use Psr\Http\Message\ServerRequestInterface;
 
-class RequestTimeFloatServiceTest extends \PHPUnit_Framework_TestCase
+class ExecutionTimeFloatServiceTest extends \PHPUnit_Framework_TestCase
 {
     protected $service;
     protected $request;
@@ -25,7 +25,7 @@ class RequestTimeFloatServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \PhpMiddleware\ResponseTime\Exception\InvalidResponseTimeException
+     * @expectedException \PhpMiddleware\ExecutionTime\Exception\InvalidExecutionTimeException
      */
     public function testMissingRequestTimeKey()
     {

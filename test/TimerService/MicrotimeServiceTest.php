@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpMiddlewareTest\ResponseTime\TimerService;
+namespace PhpMiddlewareTest\ExecutionTime\TimerService;
 
-use PhpMiddleware\ResponseTime\TimerService\MicrotimeService;
+use PhpMiddleware\ExecutionTime\TimerService\MicrotimeService;
 
 class MicrotimeServiceTest extends \PHPUnit_Framework_TestCase
 {
