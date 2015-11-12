@@ -6,7 +6,7 @@ use PhpMiddleware\ResponseTime\TimerService\TimerServiceInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class ResponseTimeMiddleware implements ResponseTimeAwareInterface
+class ResponseTimeMiddleware implements ResponseTimeProviderInterface
 {
     const HEADER_RESPONSE_TIME = 'X-Response-Time';
 
@@ -37,7 +37,7 @@ class ResponseTimeMiddleware implements ResponseTimeAwareInterface
         return $response;
     }
 
-    public function getResponseTime()
+    public function getExcecutionTime()
     {
         if ($this->responseTime === null) {
             throw new Exception\NotMeasuredResponseTimeException('Response time is not measured yet');

@@ -41,7 +41,7 @@ class ResponseTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(ResponseInterface::class, $result);
         $this->assertNotSame($response, $result);
-        $this->assertSame(0.5, $this->middleware->getResponseTime());
+        $this->assertSame(0.5, $this->middleware->getExcecutionTime());
     }
 
     /**
@@ -64,7 +64,7 @@ class ResponseTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetReponseTimeBeforeRun()
     {
-        $this->middleware->getResponseTime();
+        $this->middleware->getExcecutionTime();
     }
 
     public function testNoReturnHeaderIfEmptySetup()
@@ -85,6 +85,6 @@ class ResponseTimeMiddlewareTest extends \PHPUnit_Framework_TestCase
         });
 
         $this->assertInstanceOf(ResponseInterface::class, $result);
-        $this->assertSame(0.5, $middleware->getResponseTime());
+        $this->assertSame(0.5, $middleware->getExcecutionTime());
     }
 }

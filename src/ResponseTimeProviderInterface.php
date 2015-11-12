@@ -2,10 +2,10 @@
 
 namespace PhpMiddleware\ResponseTime;
 
-interface ResponseTimeAwareInterface
+interface ResponseTimeProviderInterface
 {
     /**
      * @return float Response time in miliseconds
      */
-    public function getResponseTime();
+    public function getExcecutionTime();
 }
