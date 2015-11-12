@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class ExecutionTimeMiddleware implements ExecutionTimeProviderInterface
 {
-    const HEADER_RESPONSE_TIME = 'X-Excecution-Time';
+    const HEADER_RESPONSE_TIME = 'X-Execution-Time';
 
     protected $timerService;
     protected $responseHeader;
